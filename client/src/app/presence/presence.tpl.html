@@ -1,0 +1,94 @@
+<!--
+<div class="row">
+	<h1 class="page-header">
+		Présences
+		<small>Editer les présences des élèves.</small>
+	</h1>
+</div>
+-->
+<div id="mainrowid" class="row">
+	<div class="col-xs-12 toolbar">
+	    <div class="input-group">
+		    <span class="input-group-btn">
+				<button id="lockerid" class='btn btn-primary' data-ng-init="locked=true" data-ng-click="locked=!locked">
+					<i class="fa fa-key"></i>
+				</button>
+				<button class='btn btn-primary' data-ng-click="changeDispAllWeeks()">
+					<i class="fa fa-plus"></i>
+				</button>
+				<button class='btn btn-primary' data-ng-click="sendMail()">
+					<i class="fa fa-envelope-o"></i>
+				</button>
+				<button class="btn btn-info" type="button">
+					<span class="badge">{{filteredStudentCourses.length}}</span>
+				</button>
+			</span> 
+			<select class="form-control" data-ng-model="currCourse" data-ng-options="course as course.label for course in courses | orderBy:'label'"></select>
+
+	    </div>
+	</div>
+</div>
+<br/>
+<!--
+<div id="mainrowid" class="row">
+	<div class="col-xs-12 toolbar">
+	    <div class="input-group">
+		    <span class="input-group-btn">
+				<button id="lockerid" class='btn btn-primary' data-ng-init="locked=true" data-ng-click="locked=!locked">
+					<i class="fa fa-key"></i>
+				</button>
+				<button class='btn btn-primary' data-ng-click="changeDispAllWeeks()">
+					<i class="fa fa-plus"></i>
+				</button>
+				<button class='btn btn-primary' data-ng-click="sendMail()">
+					<i class="fa fa-envelope-o"></i>
+				</button>
+			</span>
+			<button type="button" class="btn btn-default form-control pull-left">
+				<span class="badge">{{filteredStudentCourses.length}}</span> {{currCourse.label || 'Tous'}}
+			</button>
+			<span class="input-group-btn" dropdown>
+				<button id="caretid" type="button" class="btn btn-default dropdown-toggle" data-ng-click="toggleDropdown($event)">
+					<span class="caret"></span>
+					<span class="sr-only">Split button!</span>
+				</button>
+				<ul class="dropdown-menu pull-right" role="menu">
+					<li data-ng-repeat="course in courses | orderBy:'label'"><a href="#" data-ng-click="setCurCourse(course)">{{course.label}}</a></li>
+				</ul>
+			</span>
+	    </div>
+	</div>
+</div>
+<br/>-->
+<div id="presenceTable" class="row">
+	<div class="col-xs-12">
+		<table class="table table-responsive">
+		<thead>
+			<tr>
+				<th data-ng-hide="currCourse!=null">{{uiMessages.course}}</th>				
+				<th>{{uiMessages.lastname}}, {{uiMessages.firstname}}</th>
+				<th data-ng-class='{warning: (w == currWeek)}' data-ng-repeat='courseOcc in closeCoursesOcc | filter:{courseId:currCourse.id}'>
+
+				<label popover-placement="top" popover="{{popoverText(courseOcc)}}" popover-trigger="mouseenter">{{getColLabel(courseOcc.date)}}     
+				</label>
+				<!--
+				<label popover-placement="top" popover="{{courseOcc.date | date:'dd-MM-yyyy HH:mm'}}" popover-trigger="mouseenter">{{getWeekNum(courseOcc.date)}}     
+				</label>-->
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!--<tr data-ng-repeat="sc in studentCourses | filter:search">-->
+			<tr data-ng-repeat="sc in filteredStudentCourses = (studentCourses | filter:isCurrCourse)">
+				<td data-ng-hide="currCourse!=null">{{sc.course.label}}</td>
+				<td>{{sc.student.lastname}}, {{sc.student.firstname}}</td>
+				<td data-ng-repeat='courseOcc in closeCoursesOcc | filter:{courseId:currCourse.id}' data-ng-class='{warning: (courseOcc.week == currWeek)}' >
+				<input type="checkbox" data-ng-model="getStudentPresence(sc.student.id, courseOcc).present" data-ng-change="changed()" data-ng-disabled="(locked && courseOcc.week != currWeek)">
+				<!--p:{{getStudentPresence(sc.student.id, courseOcc)}}-->
+				</td>
+			</tr>
+		</tbody>
+	</div>
+</div>
+
+

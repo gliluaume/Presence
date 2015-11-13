@@ -1,0 +1,87 @@
+<!--
+<div class="row">
+	<h1 class="page-header">
+		Etudiants
+		<small>Editer les élèves.</small>
+	</h1>
+</div>
+-->
+<div id="editstudents" class="row">
+	<div class="col-xs-12">
+		<table class="table table-responsive">
+			<thead>
+				<th>
+					<div class="input-group">
+						<span class="input-group-addon btn btn-primary" data-ng-click="setOrder('lastname')">
+							<i data-ng-class="{'glyphicon':true, 'glyphicon-sort-by-alphabet':reverses['lastname'], 'glyphicon-sort-by-alphabet-alt':!reverses['lastname']}"></i>
+						</span>
+						<input class='form-control' type="text" data-ng-model="search.lastname" placeholder="{{uiMessages.label}}">
+					</div>
+				</th>
+				<th class="">
+					<div class="input-group">
+						<span class="input-group-addon btn btn-primary" data-ng-click="setOrder('firstname')">
+							<i data-ng-class="{'glyphicon':true, 'glyphicon-sort-by-alphabet':reverses['firstname'], 'glyphicon-sort-by-alphabet-alt':!reverses['firstname']}"></i>
+						</span>
+						<input class='form-control' type="text" data-ng-model="search.firstname" placeholder="{{uiMessages.firstname}}">
+					</div>
+				</th>
+				<th class="hidden-xs" data-ng-hide="!dispAddInfo">
+					<div class="input-group">
+						<span class="input-group-addon btn btn-primary" data-ng-click="setOrder('email')">
+							<i data-ng-class="{'glyphicon':true, 'glyphicon-sort-by-alphabet':reverses['email'], 'glyphicon-sort-by-alphabet-alt':!reverses['email']}"></i>
+						</span>
+						<input class='form-control' type="text" data-ng-model="search.email" placeholder="Courriel">
+					</div>
+				</th>		
+				<th><label class="badge">{{filteredStudents.length}}</label></th>
+				<th></th>
+				<th></th>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat="s in filteredStudents = (students | filter:{lastname:search.lastname}:strict | orderBy:predicate:reverse)" data-ng-init="s.edit=false">
+					<form>
+						<td>
+							<input class="form-control" data-ng-model="s.lastname" data-ng-disabled="!s.edit" maxlength="10">
+						</td>
+						<td>
+							<input class="form-control" data-ng-model="s.firstname" data-ng-disabled="!s.edit" maxlength="100">
+						</td>
+						<td class="hidden-xs" data-ng-hide="!dispAddInfo">
+							<input class="form-control" data-ng-model="s.email" data-ng-disabled="!s.edit" maxlength="100">
+						</td>
+						<td>
+							<button class="btn btn-default" data-ng-click="s.sex=(s.sex+1)%2" data-ng-disabled="!s.edit"><i data-ng-class="{'fa':true, 'fa-female':s.sex==0, 'fa-male':s.sex==1}"></i></button>
+						</td>
+						<td>
+							<button class='btn btn-primary' data-ng-hide="s.edit" data-ng-click="s.edit=!s.edit"><i class="fa fa-pencil"></i></button>
+							<button class='btn btn-success' data-ng-hide="!(s.edit)" data-ng-click="saveStudent(s)" data-ng-disabled="!((s.lastname != null) && (s.lastname.length > 0) && (s.firstname != null) && (s.firstname.length > 0) && (s.sex != null))"><i class="fa fa-save"></i></button>
+						</td>
+						<td>
+							<button class='btn btn-default' data-ng-disabled="s.edit" data-ng-click="deleteStudent(s)"><i class="red fa fa-close"></i></button>
+						</td>
+					</form>
+				</tr>
+				<tr data-ng-model="newStudent">
+					<form>
+						<td>
+							<input class="form-control" data-ng-model="newStudent.lastname" placeholder="{{uiMessages.lastname}}" maxlength="100">
+						</td>
+						<td>
+							<input class="form-control" data-ng-model="newStudent.firstname" placeholder="{{uiMessages.firstname}}" maxlength="100">
+						</td>
+						<td class="hidden-xs" data-ng-hide="!dispAddInfo"><input class="form-control" data-ng-model="newStudent.email" placeholder="{{uiMessages.email}}" maxlength="100"></td>
+						<td>
+							<button class="btn btn-default" data-ng-click="newStudent.sex=(newStudent.sex+1)%2"><i data-ng-class="{'fa':true, 'fa-female':newStudent.sex==0, 'fa-male':newStudent.sex==1}"></i></button>
+							<!--<select class="form-control " data-ng-model="newStudent.sex" data-ng-options="i.id as i.name for i in sexes"></select>-->
+						</td>
+						<td>
+							<button class='btn btn-danger' data-ng-click="addStudent()" data-ng-disabled="!((newStudent.lastname != null) && (newStudent.lastname.length > 0) && (newStudent.firstname != null) && (newStudent.firstname.length > 0) && (newStudent.sex != null))"><i class="fa fa-save"></i></button>
+						</td>
+						<td></td>
+					</form>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

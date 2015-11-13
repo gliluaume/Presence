@@ -1,0 +1,102 @@
+<!--<div class="row">
+	<h1 class="page-header">
+		Cours
+		<small>Editer les cours.</small>
+	</h1>
+</div>
+-->
+<div id="editcourses" class="row">
+	<div class="col-xs-12">
+		<table class="table table-responsive">
+			<thead>
+				<tr>
+					<th>
+						Nom
+					</th>
+					<th data-ng-hide="!dispAddInfo">
+						Site
+					</th>					
+					<th data-ng-hide="!dispAddInfo">
+						{{uiMessages.level}}
+					</th>
+					<th>
+						{{uiMessages.day}}
+					</th>				
+					<th>
+						Heure
+					</th>
+					<th data-ng-hide="!dispAddInfo">Durée</th>
+					<th></th>
+					<th></th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat="c in courses"  data-ng-init="c.edit=false">
+					<form>
+						<td>
+							<input class="form-control" data-ng-model="c.label" data-ng-disabled="!c.edit" maxlength="100">
+						</td>
+
+						<td data-ng-hide="!dispAddInfo">
+							<input class="form-control" data-ng-model="c.site" data-ng-disabled="!c.edit" maxlength="100">
+						</td>
+
+						<td data-ng-hide="!dispAddInfo">
+							<select class="form-control" data-ng-model="c.levelId" data-ng-options="l.id as l.label for l in levels" data-ng-disabled="!c.edit"></select>
+						</td>
+
+						<td>
+						<select class="form-control" data-ng-model="c.day" data-ng-options="d.value as uiMessages.days[d.name] for d in days" data-ng-disabled="!c.edit"></select>
+						</td>
+
+						<td>
+							<input class="form-control" type="time" name="time" data-ng-model="c.hourlib" data-ng-disabled="!c.edit"/>
+						</td>
+						<td data-ng-hide="!dispAddInfo">
+							<input class="form-control" type="time" name="duration" data-ng-model="c.duration" data-ng-disabled="!c.edit"/>
+						</td>
+						<!-- boutons editer et créer-->
+						<td>
+							<button class='btn btn-primary' data-ng-hide="c.edit" data-ng-click="c.edit=!c.edit"><i class="fa fa-pencil"></i></button>
+							<button class='btn btn-success' data-ng-hide="!(c.edit)" data-ng-click="saveCourse(c)" data-ng-disabled="!((c.label != null) && (c.label.length > 0) && (c.day != null) && c.hourlib)"><i class="fa fa-save"></i></button>
+						</td>
+						<td>
+							<button class='btn btn-default' data-ng-disabled="c.edit" data-ng-click="deleteCourse(c)"><i class="red fa fa-close"></i></button>
+						</td>
+					</form>
+				</tr>
+				<tr data-ng-init="newCourse={}">
+					<form>
+						<td>
+							<input class="form-control" data-ng-model="newCourse.label"  placeholder="{{uiMessages.label}}" data-ng-required="true" maxlength="100">
+						</td>
+
+						<td  data-ng-hide="!dispAddInfo">
+							<input class="form-control" data-ng-model="newCourse.site"  placeholder="Site" data-ng-required="true" maxlength="100">
+						</td>
+
+						<td data-ng-hide="!dispAddInfo">
+							<select class="form-control" data-ng-model="newCourse.levelId" data-ng-options="l.id as l.label for l in levels"  data-ng-required="false"></select>
+						</td>
+
+						<td>
+						<select class="form-control" data-ng-model="newCourse.day" data-ng-options="d.value as uiMessages.days[d.name] for d in days" data-ng-required="true"></select>
+						</td>
+
+						<td>
+							<input class="form-control" type="time" name="time" data-ng-model="newCourse.hourlib" data-ng-required="true"/>
+						</td>
+						<td data-ng-hide="!dispAddInfo">
+							<input class="form-control" type="time" name="duration" data-ng-model="newCourse.duration"/>
+						</td>
+						<td>
+							<button class='btn btn-danger' data-ng-click="addCourse()" data-ng-disabled="!((newCourse.label != null) && (newCourse.label.length > 0) && (newCourse.day != null) && newCourse.hourlib)"><i class="fa fa-save"></i></button>
+						</td>
+						
+						<td></td>
+					</form>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

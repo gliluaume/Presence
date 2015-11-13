@@ -1,0 +1,62 @@
+<!--
+<div class="row">
+	<h1 class="page-header">
+		Calendrier
+		<small>Editer les périodes ouvertes.</small>
+	</h1>
+</div>
+-->
+<div id="editcourses">
+	<form name="myFormEditcourses">
+		<table class="table table-responsive">
+			<thead>
+				<tr>
+					<th>
+						<!--<label class='form-control'>Début</label>-->
+						Début
+					</th>
+					<th>
+						<!--<label class='form-control'>Fin</label>-->
+						Fin
+					</th>
+					<th>
+					</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat="p in periods" data-ng-init="p.edit=false" >
+					<td>
+						<input class="form-control" type="date" data-ng-model="p.tmpStart" data-ng-disabled="!(p.edit)"/>
+
+					</td>
+					<td>
+						<input class="form-control" type="date" data-ng-model="p.tmpEnd" data-ng-disabled="!(p.edit)"/>
+					</td>
+					<td data-ng-hide="p.edit">
+						<button class='btn btn-primary' data-ng-click="p.edit=!p.edit"><i class="fa fa-pencil"></i></button>
+					</td>
+					<td data-ng-hide="!(p.edit)">
+						<button class='btn btn-success' data-ng-click="update(p)" data-ng-disabled="!(isValidPeriod(p))"><i class="fa fa-save"></i></button>
+					</td>
+					<td>
+						<!--<button class='btn btn-default' data-ng-disabled="p.edit" data-ng-click="deletePeriod(p)"><i class="red fa fa-close"></i></button>-->
+					</td>
+				</tr>
+				<tr data-ng-init="newPeriod={}">
+					<td>
+						<input class="form-control" type="date" data-ng-model="newPeriodStart"/>
+					</td>
+					<td>
+						<input class="form-control" type="date" data-ng-model="newPeriodEnd"/>
+					</td>
+					<!-- boutons editer et créer-->
+					<td>
+						<button class='btn btn-danger' data-ng-click="addPeriod()" data-ng-disabled="!(isValidNewPeriodDesc(newPeriodStart, newPeriodEnd))"><i class="fa fa-save"></i></button>
+					</td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+</div>

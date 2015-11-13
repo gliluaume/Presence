@@ -1,0 +1,60 @@
+<!--
+<div class="row">
+	<h1 class="page-header">
+		Occurrences des cours
+		<small>Editer les occurrences de cours.</small>
+	</h1>
+</div>
+-->
+<div id="editcourses" class="row">
+	<div class="col-xs-12">
+		<table class="table table-responsive" data-ng-init="newCourseOcc={}">
+			<thead>
+				<tr>
+					<th>
+						<select class="form-control btn btn-default" data-ng-init="filterCourse=courses[0]" data-ng-model="filterCourse" data-ng-options="course as course.label for course in courses | orderBy:'label'" data-ng-change="newCourseOcc.courseId=filterCourse.id"></select>
+			        </th>
+					<th>Jour</th>
+					<th>Heure</th>
+					<th><label class="badge">{{filteredOccurences.length}}</label></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat="c in filteredOccurences=(coursesOccurences | filter:{courseId : filterCourse.id}:true)" data-ng-init="c.edit=false">
+					<td>
+						<select class="form-control" data-ng-model="c.courseId" data-ng-options="d.id as d.label for d in courses" data-ng-disabled="!c.edit"></select>
+					</td>
+					<td>
+						<input class="form-control" type="date" name="courseOccDay" data-ng-model="c.tmpDay" data-ng-disabled="!(c.edit)"/>
+					</td>
+					<td>
+						<input class="form-control" type="time" name="courseOccTime" data-ng-model="c.tmpTime" data-ng-disabled="!(c.edit)"/>
+					</td>
+					<td>
+						<button class='btn btn-primary' data-ng-hide="c.edit" data-ng-click="c.edit=!c.edit"><i class="fa fa-pencil"></i></button>
+						<button class='btn btn-success' data-ng-hide="!(c.edit)" data-ng-click="save(c)"  data-ng-disabled="!((c.courseId != null) && (c.tmpDay != null) && (c.tmpTime != null))"><i class="fa fa-save"></i></button>
+					</td>
+					<td>
+						<button class='btn btn-default' data-ng-disabled="c.edit" data-ng-click="deleteOcc(c)"><i class="red fa fa-close"></i></button>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<select class="form-control" data-ng-model="newCourseOcc.courseId" data-ng-options="d.id as d.label for d in courses" data-ng-init="newCourseOcc.courseId=filterCourse.id"></select>
+					</td>				
+					<td>
+						<input class="form-control" type="date" name="newCourseOcc-tmpDay" data-ng-model="newCourseOcc.tmpDay"/>
+					</td>
+					<td>
+						<input class="form-control" type="time" name="newCourseOcc-tmpTime" data-ng-model="newCourseOcc.tmpTime"/>
+					</td>			
+					<td>
+						<button class='btn btn-danger' data-ng-click="addCourseOcc()" data-ng-disabled="!((newCourseOcc.courseId != null) && (newCourseOcc.tmpDay != null) && (newCourseOcc.tmpTime != null) &&(!existsNewCourseOcc(newCourseOcc)))"><i class="fa fa-save"></i></button>
+					</td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

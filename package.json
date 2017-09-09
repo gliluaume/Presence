@@ -1,8 +1,8 @@
 {
-  "name": "goal-tracker",
+  "name": "presence",
   "version": "2.0.0",
   "private": true,
-  "description": "Demo app used in Delicious Insights’ JS Total training course",
+  "description": "Presence management app",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js --progress",
     "deploy": "surge --project public",
@@ -68,12 +68,7 @@
     "setupTestFrameworkScriptFile": "<rootDir>/jest/setup.js"
   },
   "keywords": [
-    "node",
-    "nodejs",
-    "training",
-    "goals",
-    "tracker",
-    "demo"
+    "presence"
   ],
   "author": "Christophe Porteneuve <christophe@delicious-insights.com>",
   "license": "No-License (see LICENSE file)",
@@ -117,6 +112,7 @@
     "copy-webpack-plugin": "^4.0.1",
     "cross-env": "^5.0.1",
     "css-loader": "^0.28.0",
+    "cz-conventional-changelog": "^2.0.0",
     "dirty-chai": "^2.0.0",
     "enzyme": "^2.9.1",
     "enzyme-to-json": "^1.5.0",
@@ -154,5 +150,10 @@
     "webpack-dashboard": "^0.4.0",
     "webpack-dev-middleware": "^1.11.0",
     "webpack-hot-middleware": "^2.18.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }

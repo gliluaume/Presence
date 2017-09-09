@@ -1,8 +1,8 @@
 import React from 'react'
-import {List, ListItem} from 'material-ui/List'
+import {List} from 'material-ui/List'
 import Subheader from 'material-ui/Subheader'
-import CommunicationChatBubble from 'material-ui/svg-icons/communication/chat-bubble'
 import PropTypes from 'prop-types'
+import Student from './Student'
 
 const Students = ({students}) => {
   return (
@@ -10,17 +10,7 @@ const Students = ({students}) => {
       <Subheader>Students</Subheader>
       {
         students.map((student) => (
-          <ListItem
-            key={student.id}
-            primaryText={`${student.firstname} ${student.lastname}`}
-            rightIcon={<CommunicationChatBubble />}
-            secondaryText={
-              <p>
-                lorem ipsum
-              </p>
-            }
-            secondaryTextLines={1}
-          />
+          <Student student={student} key={student.id} />
         ))
       }
     </List>

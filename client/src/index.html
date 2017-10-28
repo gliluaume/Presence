@@ -15,6 +15,9 @@
         <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
         <script type="text/javascript" src="<%= file %>"></script><% }); %>
 
+        <!-- hard coded javascript -->
+        <script type="text/javascript" src="vendor/angular-placeholders-0.0.1-SNAPSHOT.min.js"></script>
+
     </head>
     <body>
         <div class="container">
@@ -36,7 +39,7 @@
                         <span class="red glyphicon glyphicon-exclamation-sign" aria-hidden="true" data-ng-hide="isConnected"></span>
                         Appel
                         <small>
-                                v<%= version %> 
+                                v<%= version %>
                         </small>
                     </div>
                 </div>
@@ -103,7 +106,7 @@
         <div class="container" ui-view="main"></div>
 
         <footer class="footer">
-        
+
             <div class="container">
                 <div class="footer-inner">
                     <p>Environnement actuel : {{general.filename}}</p>
